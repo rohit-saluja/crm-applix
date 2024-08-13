@@ -4,6 +4,8 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from "redux-persist/lib/storage";
 import { emptySplitApi } from "./services/index";
 import employeeReducer from "./features/employee-slice";
+import customerReducer from "./features/customer-slice";
+import leadReducer from "./features/lead-slice";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +15,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   employee: employeeReducer,
+  customer: customerReducer,
+  lead: leadReducer,
   [emptySplitApi.reducerPath]: emptySplitApi.reducer,
 });
 

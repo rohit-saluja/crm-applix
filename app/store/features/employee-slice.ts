@@ -15,7 +15,7 @@ export const employeeSlice = createSlice({
       state.employees[index] = action.payload;
     },
     deleteEmployee: (state, action: PayloadAction<Employee>) => {
-      const remaining = state.employees.filter((employee) => employee.id === action.payload.id);
+      const remaining = state.employees.filter((employee) => employee.id !== action.payload.id);
       state.employees = remaining;
     },
     addEmployee: (state, action: PayloadAction<Employee>) => {

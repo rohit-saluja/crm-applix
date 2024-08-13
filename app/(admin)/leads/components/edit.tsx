@@ -38,8 +38,9 @@ export default function Edit({ lead }: { lead: Lead }) {
   });
   const customerOptions = customers.map((customer) => ({ name: customer.name, value: customer.name }));
   const employeeOptions = employees.map((employee) => ({ name: employee.name, value: employee.name }));
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateLead(values));
+    dispatch(updateLead({ ...values, id: lead.id }));
     toast({
       description: "Lead is added",
     });

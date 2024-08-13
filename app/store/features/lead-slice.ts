@@ -16,7 +16,7 @@ export const leadSlice = createSlice({
       state.leads[index] = action.payload;
     },
     deleteLead: (state, action: PayloadAction<Lead>) => {
-      const remaining = state.leads.filter((lead) => lead.id === action.payload.id);
+      const remaining = state.leads.filter((lead) => lead.id !== action.payload.id);
       state.leads = remaining;
     },
     addLead: (state, action: PayloadAction<Lead>) => {

@@ -15,7 +15,7 @@ export const customerSlice = createSlice({
       state.customers[index] = action.payload;
     },
     deleteCustomer: (state, action: PayloadAction<Customer>) => {
-      const remaining = state.customers.filter((customer) => customer.id === action.payload.id);
+      const remaining = state.customers.filter((customer) => customer.id !== action.payload.id);
       state.customers = remaining;
     },
     addCustomer: (state, action: PayloadAction<Customer>) => {

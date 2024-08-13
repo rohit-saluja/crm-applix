@@ -37,7 +37,7 @@ export default function Edit({ employee }: { employee: Employee }) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateEmployee(values));
+    dispatch(updateEmployee({ ...values, id: employee.id }));
     toast({
       description: "Employee is updated",
     });

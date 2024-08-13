@@ -13,6 +13,7 @@ import { useAppDispatch } from "@/app/store/hooks";
 import { updateEmployee } from "@/app/store/features/employee-slice";
 import { MdModeEditOutline } from "react-icons/md";
 import { Customer } from "@/app/types/customer";
+import { updateCustomer } from "@/app/store/features/customer-slice";
 
 export default function Edit({ customer }: { customer: Customer }) {
   const { toast } = useToast();
@@ -37,7 +38,7 @@ export default function Edit({ customer }: { customer: Customer }) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateEmployee(values));
+    dispatch(updateCustomer({ ...values, id: customer.id }));
     toast({
       description: "Customer is updated",
     });

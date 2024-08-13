@@ -9,10 +9,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { useAppDispatch } from "@/app/store/hooks";
+import { addEmployee } from "@/app/store/features/employee-slice";
 
 export default function Add() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -32,6 +35,7 @@ export default function Add() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    dispatch(addEmployee(values));
     toast({
       description: "Added the employee",
     });

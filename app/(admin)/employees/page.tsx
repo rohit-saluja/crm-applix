@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
 import Add from "./components/add";
+import TableView from "./components/table-view";
 
 export default function Employees() {
   return (
@@ -28,7 +29,6 @@ export default function Employees() {
         <TableCaption>A list of your employees.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[160px]">Employee Id</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Phone Number</TableHead>
@@ -36,23 +36,7 @@ export default function Employees() {
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>Paid</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell>Credit Card</TableCell>
-            <TableCell className="text-right">
-              <Button variant="outline" size="icon">
-                <MdModeEditOutline className="text-2xl" />
-              </Button>
-              <Button variant="outline" size="icon">
-                <MdOutlineDelete className="text-2xl" />
-              </Button>
-            </TableCell>
-          </TableRow>
-        </TableBody>
+        <TableView />
       </Table>
     </div>
   );

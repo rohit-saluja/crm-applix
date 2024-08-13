@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { MdPersonAddAlt } from "react-icons/md";
+import { MdOutlineOutbond } from "react-icons/md";
 
 export default function SideBar() {
   const pathname = usePathname();
@@ -28,6 +29,15 @@ export default function SideBar() {
       >
         <MdPersonAddAlt className="text-lg" />
         <span>Customers</span>
+      </Link>
+      <Link
+        href={"/leads"}
+        className={`${classNames({
+          "bg-accent": pathname.includes("customers"),
+        })}  flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground px-2`}
+      >
+        <MdOutlineOutbond className="text-lg" />
+        <span>Leads</span>
       </Link>
     </div>
   );

@@ -2,44 +2,46 @@
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/store/hooks";
-import { updateEmployee } from "@/app/store/features/employee-slice";
-import { Employee } from "@/app/types/employee";
-import { MdModeEditOutline } from "react-icons/md";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
+import { useToast } from "@/components/ui/use-toast";
+import { selectCustomers } from "@/app/store/features/customer-slice";
+import { selectEmployees } from "@/app/store/features/employee-slice";
+import { Lead } from "@/app/types/lead";
+import { updateLead } from "@/app/store/features/lead-slice";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { statusOptions } from "@/config";
 
-export default function Edit({ employee }: { employee: Employee }) {
+export default function Edit({ lead }: { lead: Lead }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const customers = useAppSelector(selectCustomers);
+  const employees = useAppSelector(selectEmployees);
 
   const formSchema = z.object({
-    name: z.string().min(1, { message: "Name is required" }),
-    email: z.string().email().min(1, { message: "Email is required" }),
-    phone: z.string().min(1, { message: "Phone is required" }),
-    address: z.string().min(1, { message: "Address is required" }),
+    customer: z.string().min(1, { message: "Customer is required" }),
+    status: z.string().email().min(1, { message: "Status is required" }),
+    assigned_to: z.string().min(1, { message: "Employee is required" }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: employee.name,
-      email: employee.email,
-      phone: employee.phone,
-      address: employee.address,
+      customer: "",
+      status: "",
+      assigned_to: "",
     },
   });
-
+  const customerOptions = customers.map((customer) => ({ name: customer.name, value: customer.name }));
+  const employeeOptions = employees.map((employee) => ({ name: employee.name, value: employee.name }));
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateEmployee(values));
+    dispatch(updateLead(values));
     toast({
-      description: "Customer is updated",
+      description: "Lead is added",
     });
     form.reset();
     setOpen(false);
@@ -48,64 +50,82 @@ export default function Edit({ employee }: { employee: Employee }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant="outline" size="icon">
-          <MdModeEditOutline className="text-2xl" />
-        </Button>
+        <Button variant={"default"}>Add New</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Customer</DialogTitle>
+          <DialogTitle>Edit Lead</DialogTitle>
           <DialogDescription>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="customer"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Name" {...field} />
-                      </FormControl>
+                      <FormLabel>Customer</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select customer" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {customerOptions.map((customer) => (
+                            <SelectItem value={customer.value as string} key={customer.value}>
+                              {customer.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Email" {...field} />
-                      </FormControl>
+                      <FormLabel>Status</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select status" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {statusOptions.map((status) => (
+                            <SelectItem value={status.value as string} key={status.value}>
+                              {status.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="phone"
+                  name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Phone" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="address"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Address</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder="Address" {...field} />
-                      </FormControl>
+                      <FormLabel>Assigned to (employee)</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select employee" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {employeeOptions.map((employee) => (
+                            <SelectItem value={employee.value as string} key={employee.value}>
+                              {employee.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

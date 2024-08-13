@@ -3,17 +3,18 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { deleteEmployee } from "@/app/store/features/employee-slice";
-import { Employee } from "@/app/types/employee";
 import { MdOutlineDelete } from "react-icons/md";
 import { useAppDispatch } from "@/app/store/hooks";
 import { Button } from "@/components/ui/button";
+import { Customer } from "@/app/types/customer";
+import { deleteCustomer } from "@/app/store/features/customer-slice";
 
-export default function Delete({ employee }: { employee: Employee }) {
+export default function Delete({ customer }: { customer: Customer }) {
   const { toast } = useToast();
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   function onSubmit() {
-    dispatch(deleteEmployee(employee));
+    dispatch(deleteCustomer(customer));
     toast({
       description: "Employee is deleted",
     });

@@ -1,24 +1,24 @@
 "use client";
-import { selectEmployees } from "@/app/store/features/employee-slice";
 import { useAppSelector } from "@/app/store/hooks";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Edit from "./edit";
 import Delete from "./delete";
+import { selectCustomers } from "@/app/store/features/customer-slice";
 
 export default function TableView() {
-  const employees = useAppSelector(selectEmployees);
+  const customers = useAppSelector(selectCustomers);
 
   return (
     <TableBody>
-      {employees.map((employee) => (
-        <TableRow key={employee.name}>
-          <TableCell>{employee.name}</TableCell>
-          <TableCell>{employee.email}</TableCell>
-          <TableCell>{employee.phone}</TableCell>
-          <TableCell>{employee.address}</TableCell>
+      {customers.map((customer) => (
+        <TableRow key={customer.name}>
+          <TableCell>{customer.name}</TableCell>
+          <TableCell>{customer.email}</TableCell>
+          <TableCell>{customer.phone}</TableCell>
+          <TableCell>{customer.address}</TableCell>
           <TableCell className="text-right">
-            <Edit employee={employee} />
-            <Delete employee={employee} />
+            <Edit customer={customer} />
+            <Delete customer={customer} />
           </TableCell>
         </TableRow>
       ))}

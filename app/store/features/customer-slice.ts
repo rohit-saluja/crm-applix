@@ -25,7 +25,7 @@ export const customerSlice = createSlice({
   },
 });
 
-export const selectEmployees = (state: RootState) => state.employee.employees;
+export const selectCustomers = (state: RootState) => state.customer.customers;
 
 export const { updateCustomer, deleteCustomer, addCustomer } = customerSlice.actions;
 export default customerSlice.reducer;

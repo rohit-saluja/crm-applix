@@ -11,10 +11,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store/hooks";
 import { updateEmployee } from "@/app/store/features/employee-slice";
-import { Employee } from "@/app/types/employee";
 import { MdModeEditOutline } from "react-icons/md";
+import { Customer } from "@/app/types/customer";
 
-export default function Edit({ employee }: { employee: Employee }) {
+export default function Edit({ customer }: { customer: Customer }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -29,10 +29,10 @@ export default function Edit({ employee }: { employee: Employee }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: employee.name,
-      email: employee.email,
-      phone: employee.phone,
-      address: employee.address,
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      address: customer.address,
     },
   });
 

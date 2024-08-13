@@ -1,24 +1,24 @@
 "use client";
-import { selectEmployees } from "@/app/store/features/employee-slice";
 import { useAppSelector } from "@/app/store/hooks";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import Edit from "./edit";
 import Delete from "./delete";
+import { selectLeads } from "@/app/store/features/lead-slice";
 
 export default function TableView() {
-  const employees = useAppSelector(selectEmployees);
+  const leads = useAppSelector(selectLeads);
 
   return (
     <TableBody>
-      {employees.map((employee) => (
-        <TableRow key={employee.name}>
-          <TableCell>{employee.name}</TableCell>
-          <TableCell>{employee.email}</TableCell>
-          <TableCell>{employee.phone}</TableCell>
-          <TableCell>{employee.address}</TableCell>
+      {leads.map((lead) => (
+        <TableRow key={lead.id}>
+          <TableCell>{lead.customer}</TableCell>
+          <TableCell>{lead.status}</TableCell>
+          <TableCell>{lead.assigned_to}</TableCell>
+          <TableCell>{lead.created_at}</TableCell>
           <TableCell className="text-right">
-            <Edit employee={employee} />
-            <Delete employee={employee} />
+            <Edit lead={lead} />
+            <Delete lead={lead} />
           </TableCell>
         </TableRow>
       ))}

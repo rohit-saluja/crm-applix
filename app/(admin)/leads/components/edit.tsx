@@ -15,6 +15,7 @@ import { updateLead } from "@/app/store/features/lead-slice";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { statusOptions } from "@/config";
 import { MdModeEditOutline } from "react-icons/md";
+import moment from "moment";
 
 export default function Edit({ lead }: { lead: Lead }) {
   const { toast } = useToast();
@@ -25,23 +26,23 @@ export default function Edit({ lead }: { lead: Lead }) {
 
   const formSchema = z.object({
     customer: z.string().min(1, { message: "Customer is required" }),
-    status: z.string().email().min(1, { message: "Status is required" }),
+    status: z.string().min(1, { message: "Status is required" }),
     assigned_to: z.string().min(1, { message: "Employee is required" }),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      customer: "",
-      status: "",
-      assigned_to: "",
+      customer: lead.customer,
+      status: lead.status,
+      assigned_to: lead.assigned_to,
     },
   });
   const customerOptions = customers.map((customer) => ({ name: customer.name, value: customer.name }));
   const employeeOptions = employees.map((employee) => ({ name: employee.name, value: employee.name }));
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateLead({ ...values, id: lead.id }));
+    dispatch(updateLead({ ...values, id: lead.id, created_at: moment().format("dd-MM-YYYY") }));
     toast({
       description: "Lead is added",
     });

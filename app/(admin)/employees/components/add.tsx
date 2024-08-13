@@ -7,8 +7,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 export default function Add() {
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     email: z.string().email().min(1, { message: "Email is required" }),
@@ -27,13 +32,15 @@ export default function Add() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    toast({
+      description: "Added the employee",
+    });
+    form.reset();
+    setOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Button variant={"default"}>Add New</Button>
       </DialogTrigger>
@@ -84,12 +91,12 @@ export default function Add() {
                 />
                 <FormField
                   control={form.control}
-                  name="phone"
+                  name="address"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Phone</FormLabel>
+                      <FormLabel>Address</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Phone" {...field} />
+                        <Textarea placeholder="Address" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

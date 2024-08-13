@@ -33,7 +33,7 @@ export default function SideBar() {
       <Link
         href={"/leads"}
         className={`${classNames({
-          "bg-accent": pathname.includes("customers"),
+          "bg-accent": pathname.includes("leads"),
         })}  flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground px-2`}
       >
         <MdOutlineOutbond className="text-lg" />

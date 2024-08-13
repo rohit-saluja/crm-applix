@@ -2,6 +2,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
+import Add from "./components/add";
 
 export default function Employees() {
   return (
@@ -21,7 +22,7 @@ export default function Employees() {
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold">Employees</h1>
         </div>
-        <Button variant={"default"}>Add New</Button>
+        <Add />
       </div>
       <Table>
         <TableCaption>A list of your employees.</TableCaption>

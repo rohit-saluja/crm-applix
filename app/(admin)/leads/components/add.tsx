@@ -45,6 +45,7 @@ export default function Add() {
     form.reset();
     setOpen(false);
   }
+  console.log(form.formState, form.formState.errors);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -107,7 +108,7 @@ export default function Add() {
                 />
                 <FormField
                   control={form.control}
-                  name="status"
+                  name="assigned_to"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Assigned to (employee)</FormLabel>

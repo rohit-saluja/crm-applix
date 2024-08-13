@@ -14,6 +14,7 @@ import { Lead } from "@/app/types/lead";
 import { updateLead } from "@/app/store/features/lead-slice";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { statusOptions } from "@/config";
+import { MdModeEditOutline } from "react-icons/md";
 
 export default function Edit({ lead }: { lead: Lead }) {
   const { toast } = useToast();
@@ -51,7 +52,9 @@ export default function Edit({ lead }: { lead: Lead }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant={"default"}>Add New</Button>
+        <Button variant="outline" size="icon">
+          <MdModeEditOutline className="text-2xl" />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

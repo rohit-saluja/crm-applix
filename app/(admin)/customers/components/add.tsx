@@ -37,7 +37,7 @@ export default function Add() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     dispatch(addEmployee(values));
     toast({
-      description: "Employee is added",
+      description: "Customer is added",
     });
     form.reset();
     setOpen(false);
@@ -50,7 +50,7 @@ export default function Add() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Employees</DialogTitle>
+          <DialogTitle>Add Customer</DialogTitle>
           <DialogDescription>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

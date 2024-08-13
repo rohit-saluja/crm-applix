@@ -39,7 +39,7 @@ export default function Edit({ employee }: { employee: Employee }) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     dispatch(updateEmployee(values));
     toast({
-      description: "Employee is updated",
+      description: "Customer is updated",
     });
     form.reset();
     setOpen(false);
@@ -54,7 +54,7 @@ export default function Edit({ employee }: { employee: Employee }) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Employees</DialogTitle>
+          <DialogTitle>Edit Customer</DialogTitle>
           <DialogDescription>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

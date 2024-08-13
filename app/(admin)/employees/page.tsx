@@ -1,11 +1,9 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
+import { Table, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Add from "./components/add";
 import TableView from "./components/table-view";
 
-export default function Employees() {
+export default function Page() {
   return (
     <div className="flex gap-4 flex-col">
       <Breadcrumb>

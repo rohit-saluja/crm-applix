@@ -54,7 +54,7 @@ export default function Edit({ employee }: { employee: Employee }) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Employees</DialogTitle>
+          <DialogTitle>Edit Employees</DialogTitle>
           <DialogDescription>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

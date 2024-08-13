@@ -29,10 +29,10 @@ export default function Delete({ employee }: { employee: Employee }) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete Employees</DialogTitle>
+          <DialogTitle>Delete Customer</DialogTitle>
           <DialogDescription>
             <div className="flex flex-col gap-4">
-              <h1>Are you sure you want to delete this employee?</h1>
+              <h1>Are you sure you want to delete this customer?</h1>
               <div className="flex justify-end items-center gap-2">
                 <Button variant={"outline"} type="button" onClick={() => setOpen(false)}>
                   Cancel

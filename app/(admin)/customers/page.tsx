@@ -1,11 +1,9 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
+import { Table, TableCaption, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Add from "./components/add";
 import TableView from "./components/table-view";
 
-export default function Employees() {
+export default function Page() {
   return (
     <div className="flex gap-4 flex-col">
       <Breadcrumb>
@@ -15,18 +13,18 @@ export default function Employees() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Employees</BreadcrumbPage>
+            <BreadcrumbPage>Customers</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <h1 className="text-2xl font-bold">Employees</h1>
+          <h1 className="text-2xl font-bold">Customers</h1>
         </div>
         <Add />
       </div>
       <Table>
-        <TableCaption>A list of your employees.</TableCaption>
+        <TableCaption>A list of your customers.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>

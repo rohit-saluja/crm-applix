@@ -1,9 +1,7 @@
 "use client";
 import { selectEmployees } from "@/app/store/features/employee-slice";
 import { useAppSelector } from "@/app/store/hooks";
-import { Button } from "@/components/ui/button";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
 import Edit from "./edit";
 import Delete from "./delete";
 

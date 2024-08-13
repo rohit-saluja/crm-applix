@@ -4,6 +4,7 @@ import { useAppSelector } from "@/app/store/hooks";
 import { Button } from "@/components/ui/button";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
+import Edit from "./edit";
 
 export default function TableView() {
   const employees = useAppSelector(selectEmployees);
@@ -17,9 +18,7 @@ export default function TableView() {
           <TableCell>{employee.phone}</TableCell>
           <TableCell>{employee.address}</TableCell>
           <TableCell className="text-right">
-            <Button variant="outline" size="icon">
-              <MdModeEditOutline className="text-2xl" />
-            </Button>
+            <Edit employee={employee} />
             <Button variant="outline" size="icon">
               <MdOutlineDelete className="text-2xl" />
             </Button>

@@ -20,7 +20,6 @@ export default function Employees() {
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold">Employees</h1>
-          <h2 className="text-sm">Manage employees</h2>
         </div>
         <Button variant={"default"}>Add New</Button>
       </div>

@@ -23,7 +23,7 @@ export default function Add() {
 
   const formSchema = z.object({
     customer: z.string().min(1, { message: "Customer is required" }),
-    status: z.string().email().min(1, { message: "Status is required" }),
+    status: z.string().min(1, { message: "Status is required" }),
     assigned_to: z.string().min(1, { message: "Employee is required" }),
   });
 

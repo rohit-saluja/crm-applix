@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store/hooks";
-import { addEmployee } from "@/app/store/features/employee-slice";
+import { addCustomer } from "@/app/store/features/customer-slice";
 
 export default function Add() {
   const { toast } = useToast();
@@ -35,7 +35,7 @@ export default function Add() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(addEmployee(values));
+    dispatch(addCustomer(values));
     toast({
       description: "Customer is added",
     });

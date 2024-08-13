@@ -3,7 +3,7 @@ import { type Employee } from "@/app/types/employee";
 import { type RootState } from "..";
 
 const initialState: { employees: Employee[] } = {
-  employees: [{}],
+  employees: [],
 };
 
 export const employeeSlice = createSlice({

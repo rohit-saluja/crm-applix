@@ -10,9 +10,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store/hooks";
-import { addEmployee } from "@/app/store/features/employee-slice";
+import { updateEmployee } from "@/app/store/features/employee-slice";
+import { Employee } from "@/app/types/employee";
 
-export default function Add() {
+export default function Edit({ employee }: { employee: Employee }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -27,17 +28,17 @@ export default function Add() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
+      name: employee.name,
+      email: employee.email,
+      phone: employee.phone,
+      address: employee.address,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(addEmployee(values));
+    dispatch(updateEmployee(values));
     toast({
-      description: "Employee is added",
+      description: "Employee is updated",
     });
     form.reset();
     setOpen(false);

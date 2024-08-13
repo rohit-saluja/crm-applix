@@ -30,8 +30,9 @@ export default function Employees() {
           <TableRow>
             <TableHead className="w-[160px]">Employee Id</TableHead>
             <TableHead>Name</TableHead>
-            <TableHead>Address</TableHead>
+            <TableHead>Email</TableHead>
             <TableHead>Phone Number</TableHead>
+            <TableHead>Address</TableHead>
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -39,6 +40,7 @@ export default function Employees() {
           <TableRow>
             <TableCell className="font-medium">INV001</TableCell>
             <TableCell>Paid</TableCell>
+            <TableCell>Credit Card</TableCell>
             <TableCell>Credit Card</TableCell>
             <TableCell>Credit Card</TableCell>
             <TableCell className="text-right">

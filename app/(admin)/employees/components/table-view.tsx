@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
 import Edit from "./edit";
+import Delete from "./delete";
 
 export default function TableView() {
   const employees = useAppSelector(selectEmployees);
@@ -19,9 +20,7 @@ export default function TableView() {
           <TableCell>{employee.address}</TableCell>
           <TableCell className="text-right">
             <Edit employee={employee} />
-            <Button variant="outline" size="icon">
-              <MdOutlineDelete className="text-2xl" />
-            </Button>
+            <Delete employee={employee} />
           </TableCell>
         </TableRow>
       ))}

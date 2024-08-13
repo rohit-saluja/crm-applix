@@ -8,7 +8,7 @@ import { MdOutlineDelete } from "react-icons/md";
 import { useAppDispatch } from "@/app/store/hooks";
 import { Button } from "@/components/ui/button";
 
-export default function Edit({ employee }: { employee: Employee }) {
+export default function Delete({ employee }: { employee: Employee }) {
   const { toast } = useToast();
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);

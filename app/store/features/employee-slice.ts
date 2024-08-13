@@ -11,14 +11,15 @@ export const employeeSlice = createSlice({
   initialState,
   reducers: {
     updateEmployee: (state, action: PayloadAction<Employee>) => {
-      const index = state.employees.findIndex((employee) => employee.name === action.payload.name);
+      const index = state.employees.findIndex((employee) => employee.id === action.payload.id);
       state.employees[index] = action.payload;
     },
     deleteEmployee: (state, action: PayloadAction<Employee>) => {
-      const remaining = state.employees.filter((employee) => employee.name === action.payload.name);
+      const remaining = state.employees.filter((employee) => employee.id === action.payload.id);
       state.employees = remaining;
     },
     addEmployee: (state, action: PayloadAction<Employee>) => {
+      action.payload.id = Math.floor(Math.random() * 1000001).toString();
       state.employees = [action.payload, ...state.employees];
     },
   },

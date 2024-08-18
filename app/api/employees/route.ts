@@ -23,9 +23,9 @@ export async function POST(request: NextRequest) {
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === "P2002") {
-        console.log("error is ther");
+        return Response.json({ error: `Unique email id is required` }, { status: 403 });
       }
     }
-    return Response.json({ error: "unique value is required" }, { status: 403 });
+    return Response.json({ error: "unique value is required" }, { status: 500 });
   }
 }

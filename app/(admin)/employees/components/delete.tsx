@@ -2,21 +2,23 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { deleteEmployee } from "@/app/store/features/employee-slice";
 import { Employee } from "@/app/types/employee";
 import { MdOutlineDelete } from "react-icons/md";
-import { useAppDispatch } from "@/app/store/hooks";
 import { Button } from "@/components/ui/button";
+import { useDeleteEmployeeMutation } from "@/app/store/services/employee";
 
 export default function Delete({ employee }: { employee: Employee }) {
   const { toast } = useToast();
-  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
-  function onSubmit() {
-    dispatch(deleteEmployee(employee));
-    toast({
-      description: "Employee is deleted",
-    });
+  const [deleteEmployee, { isLoading }] = useDeleteEmployeeMutation();
+
+  async function onSubmit() {
+    try {
+      await deleteEmployee(employee.id as number).unwrap();
+    } catch (e: any) {
+      toast({ description: e.data.error, variant: "destructive" });
+      throw e;
+    }
     setOpen(false);
   }
 
@@ -37,7 +39,7 @@ export default function Delete({ employee }: { employee: Employee }) {
                 <Button variant={"outline"} type="button" onClick={() => setOpen(false)}>
                   Cancel
                 </Button>
-                <Button variant={"destructive"} onClick={() => onSubmit()}>
+                <Button variant={"destructive"} onClick={() => onSubmit()} disabled={isLoading}>
                   Delete
                 </Button>
               </div>

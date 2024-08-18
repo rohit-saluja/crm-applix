@@ -50,7 +50,9 @@ export default function Add() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button variant={"default"}>Add New</Button>
+        <Button variant={"default"} disabled={isLoading}>
+          Add New
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -110,7 +112,9 @@ export default function Add() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>
+                  Submit
+                </Button>
               </form>
             </Form>
           </DialogDescription>

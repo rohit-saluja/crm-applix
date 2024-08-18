@@ -10,15 +10,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store/hooks";
-import { updateEmployee } from "@/app/store/features/employee-slice";
 import { Employee } from "@/app/types/employee";
 import { MdModeEditOutline } from "react-icons/md";
+import { useUpdateEmployeesMutation } from "@/app/store/services/employee";
 
 export default function Edit({ employee }: { employee: Employee }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
-
+  const [updateEmployee] = useUpdateEmployeesMutation();
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     email: z.string().email().min(1, { message: "Email is required" }),
@@ -36,11 +36,16 @@ export default function Edit({ employee }: { employee: Employee }) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateEmployee({ ...values, id: employee.id }));
-    toast({
-      description: "Employee is updated",
-    });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await updateEmployee({ ...values, id: employee.id as number }).unwrap();
+      toast({
+        description: "Employee is updated",
+      });
+    } catch (e: any) {
+      toast({ description: e.data.error, variant: "destructive" });
+      throw e;
+    }
     form.reset();
     setOpen(false);
   }

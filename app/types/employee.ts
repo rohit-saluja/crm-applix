@@ -12,3 +12,11 @@ export interface CreateEmployee {
   phone: string;
   address: string;
 }
+
+export interface UpdateEmployee {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}

@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const data = await request.json();
   const { name, address, email, phone } = data;
+  console.log(data);
   try {
     await prisma.employee.create({
       data: {
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
         phone,
       },
     });
-    return Response.json({ message: "employee created successfully" }, { status: 200 });
+    return Response.json({ message: "Employee created successfully" }, { status: 200 });
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === "P2002") {

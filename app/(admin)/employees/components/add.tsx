@@ -1,5 +1,4 @@
 "use client";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -10,12 +9,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store/hooks";
-import { addEmployee } from "@/app/store/features/employee-slice";
+import { useCreateEmployeesMutation } from "@/app/store/services/employee";
+import { z } from "zod";
 
 export default function Add() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const [createEmployee, { isLoading }] = useCreateEmployeesMutation();
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -34,8 +35,10 @@ export default function Add() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(addEmployee(values));
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // dispatch(addEmployee(values));
+    await createEmployee({ ...values }).unwrap();
+
     toast({
       description: "Employee is added",
     });

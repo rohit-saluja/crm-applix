@@ -11,6 +11,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const emptySplitApi = createApi({
   reducerPath: "emptySplitApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: [],
+  tagTypes: ["Employees"],
   endpoints: () => ({}),
 });

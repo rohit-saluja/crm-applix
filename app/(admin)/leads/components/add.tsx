@@ -8,19 +8,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import { selectEmployees } from "@/app/store/features/employee-slice";
 import { addLead } from "@/app/store/features/lead-slice";
 import { selectCustomers } from "@/app/store/features/customer-slice";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { statusOptions } from "@/config";
+import { useGetEmployeesQuery } from "@/app/store/services/employee";
 
 export default function Add() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const customers = useAppSelector(selectCustomers);
-  const employees = useAppSelector(selectEmployees);
-
+  const { data: employees } = useGetEmployeesQuery();
   const formSchema = z.object({
     customer: z.string().min(1, { message: "Customer is required" }),
     status: z.string().min(1, { message: "Status is required" }),
@@ -36,7 +35,7 @@ export default function Add() {
     },
   });
   const customerOptions = customers.map((customer) => ({ name: customer.name, value: customer.name }));
-  const employeeOptions = employees.map((employee) => ({ name: employee.name, value: employee.name }));
+  const employeeOptions = employees?.map((employee) => ({ name: employee.name, value: employee.name }));
   function onSubmit(values: z.infer<typeof formSchema>) {
     dispatch(addLead(values));
     toast({
@@ -119,7 +118,7 @@ export default function Add() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {employeeOptions.map((employee) => (
+                          {employeeOptions?.map((employee) => (
                             <SelectItem value={employee.value as string} key={employee.value}>
                               {employee.name}
                             </SelectItem>

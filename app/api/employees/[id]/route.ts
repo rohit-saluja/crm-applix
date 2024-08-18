@@ -28,13 +28,11 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest) {
-  const data = await request.json();
-  const { id } = data;
+export async function DELETE(request: NextRequest, { params }: { params: { id: number } }) {
   try {
     await prisma.employee.delete({
       where: {
-        id,
+        id: Number(params.id),
       },
     });
     return Response.json({ message: "Employee delete successfully" }, { status: 200 });

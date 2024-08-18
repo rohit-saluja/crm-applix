@@ -8,14 +8,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/store/hooks";
 import { useCreateEmployeesMutation } from "@/app/store/services/employee";
 import { z } from "zod";
 
 export default function Add() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
   const [createEmployee, { isLoading }] = useCreateEmployeesMutation();
 
   const formSchema = z.object({
@@ -36,12 +34,15 @@ export default function Add() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // dispatch(addEmployee(values));
-    await createEmployee({ ...values }).unwrap();
-
-    toast({
-      description: "Employee is added",
-    });
+    try {
+      await createEmployee({ ...values }).unwrap();
+      toast({
+        description: "Employee is added",
+      });
+    } catch (e: any) {
+      toast({ description: e.error, variant: "destructive" });
+      throw e;
+    }
     form.reset();
     setOpen(false);
   }

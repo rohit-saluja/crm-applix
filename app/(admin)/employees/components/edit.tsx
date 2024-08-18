@@ -9,7 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/store/hooks";
 import { Employee } from "@/app/types/employee";
 import { MdModeEditOutline } from "react-icons/md";
 import { useUpdateEmployeesMutation } from "@/app/store/services/employee";
@@ -17,7 +16,6 @@ import { useUpdateEmployeesMutation } from "@/app/store/services/employee";
 export default function Edit({ employee }: { employee: Employee }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
   const [updateEmployee] = useUpdateEmployeesMutation();
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),

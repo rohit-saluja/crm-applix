@@ -9,13 +9,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/store/hooks";
-import { addCustomer } from "@/app/store/features/customer-slice";
+import { useCreateCustomerMutation } from "@/app/store/services/customer";
 
 export default function Add() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
+  const [createCustomer, { isLoading }] = useCreateCustomerMutation();
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -34,11 +33,16 @@ export default function Add() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(addCustomer(values));
-    toast({
-      description: "Customer is added",
-    });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await createCustomer({ ...values }).unwrap();
+      toast({
+        description: "Customer is added",
+      });
+    } catch (e: any) {
+      toast({ description: e.data.error, variant: "destructive" });
+      throw e;
+    }
     form.reset();
     setOpen(false);
   }

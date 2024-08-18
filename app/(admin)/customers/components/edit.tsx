@@ -9,16 +9,14 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
-import { useAppDispatch } from "@/app/store/hooks";
-import { updateEmployee } from "@/app/store/features/employee-slice";
 import { MdModeEditOutline } from "react-icons/md";
 import { Customer } from "@/app/types/customer";
-import { updateCustomer } from "@/app/store/features/customer-slice";
+import { useUpdateCustomerMutation } from "@/app/store/services/customer";
 
 export default function Edit({ customer }: { customer: Customer }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
+  const [updateCustomer] = useUpdateCustomerMutation();
 
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
@@ -37,12 +35,16 @@ export default function Edit({ customer }: { customer: Customer }) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    dispatch(updateCustomer({ ...values, id: customer.id }));
-    toast({
-      description: "Customer is updated",
-    });
-    form.reset();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await updateCustomer({ ...values, id: customer.id as number }).unwrap();
+      toast({
+        description: "Customer is updated",
+      });
+    } catch (e: any) {
+      toast({ description: e.data.error, variant: "destructive" });
+      throw e;
+    }
     setOpen(false);
   }
 

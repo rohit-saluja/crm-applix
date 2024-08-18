@@ -14,10 +14,9 @@ import { MdModeEditOutline } from "react-icons/md";
 import { useUpdateEmployeesMutation } from "@/app/store/services/employee";
 
 export default function Edit({ employee }: { employee: Employee }) {
-  console.log(employee);
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const [updateEmployee] = useUpdateEmployeesMutation();
+  const [updateEmployee, { isLoading }] = useUpdateEmployeesMutation();
   const formSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     email: z.string().email().min(1, { message: "Email is required" }),
@@ -113,7 +112,9 @@ export default function Edit({ employee }: { employee: Employee }) {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>
+                  Submit
+                </Button>
               </form>
             </Form>
           </DialogDescription>

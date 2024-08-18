@@ -14,6 +14,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { useUpdateEmployeesMutation } from "@/app/store/services/employee";
 
 export default function Edit({ employee }: { employee: Employee }) {
+  console.log(employee);
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [updateEmployee] = useUpdateEmployeesMutation();
@@ -44,7 +45,6 @@ export default function Edit({ employee }: { employee: Employee }) {
       toast({ description: e.data.error, variant: "destructive" });
       throw e;
     }
-    form.reset();
     setOpen(false);
   }
 

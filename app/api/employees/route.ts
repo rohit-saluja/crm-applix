@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const data = await request.json();
   const { name, address, email, phone } = data;
-  console.log(data);
   try {
     await prisma.employee.create({
       data: {

@@ -40,7 +40,7 @@ export default function Add() {
         description: "Employee is added",
       });
     } catch (e: any) {
-      toast({ description: e.error, variant: "destructive" });
+      toast({ description: e.data.error, variant: "destructive" });
       throw e;
     }
     form.reset();

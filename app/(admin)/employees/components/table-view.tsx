@@ -1,18 +1,16 @@
 "use client";
 import { selectEmployees } from "@/app/store/features/employee-slice";
 import { useAppSelector } from "@/app/store/hooks";
-import { Button } from "@/components/ui/button";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { MdModeEditOutline, MdOutlineDelete } from "react-icons/md";
 import Edit from "./edit";
 import Delete from "./delete";
+import { useGetEmployeesQuery } from "@/app/store/services/employee";
 
 export default function TableView() {
-  const employees = useAppSelector(selectEmployees);
-
+  const { data: employees } = useGetEmployeesQuery();
   return (
     <TableBody>
-      {employees.map((employee) => (
+      {employees?.map((employee) => (
         <TableRow key={employee.name}>
           <TableCell>{employee.name}</TableCell>
           <TableCell>{employee.email}</TableCell>
